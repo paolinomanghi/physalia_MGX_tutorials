@@ -3,8 +3,17 @@
 
 #### Download (and install) anaconda
 ```
-wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
-path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
+## wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+```
+
+#### Do not say yes randomly:  type instead "miniconda3" !
+
+```
+rm Miniconda3-latest-Linux-x86_64.sh
+## path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
+path="/home/ubuntu/TST_MGX/miniconda3/bin/"
 ```
 
 #### Raw data pre-processing (folder "1_pre-processing")
@@ -18,6 +27,8 @@ conda create -n samtools -c bioconda samtools
 #### Getting fastq example files "seq_1.fastq.gz" and "seq_2.fastq.gz" from https://github.com/biobakery/biobakery/wiki/kneaddata
 ```
 wget https://github.com/biobakery/kneaddata/files/4703820/input.zip
+unzip input.zip
+cd input
 ```
 
 #### Define variable "s" with the sampleID
@@ -29,21 +40,26 @@ s="seq"
 ```
 source ${path}/activate trimmomatic
 
-trimmomatic PE -threads 8 -phred33 -trimlog ${s}_trimmomatic.log ${s}_1.fastq.gz ${s}_2.fastq.gz \
-${s}_filtered_1.fastq.gz ${s}_unpaired_1.fastq.gz ${s}_filtered_2.fastq.gz ${s}_unpaired_2.fastq.gz \
+trimmomatic PE -threads 8 -phred33 -trimlog ${s}_trimmomatic.log ${s}1.fastq ${s}2.fastq \
+${s}_filtered_1.fastq ${s}_unpaired_1.fastq ${s}_filtered_2.fastq ${s}_unpaired_2.fastq \
 ILLUMINACLIP:${path}/../envs/trimmomatic/share/trimmomatic/adapters/TruSeq3-PE-2.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:15 MINLEN:75
 
-for i in *.gz; do echo -ne "${i}\t"; zcat "$i" | wc -l; done
+for i in *.fastq; do echo -ne "${i}\t"; cat "$i" | wc -l; done
 ```
 
 #### Getting human genome and generate bowtie2 index
-#### Getting the file GCF_009914755.1_T2T-CHM13v2.0.fna from https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_009914755.1/
+#### Getting the file GCF_009914755.1_T2T-CHM13v2.0.fna from https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_009914755.1/GCF_009914755.1_T2T-CHM13v2.0.fna
 ```
 source ${path}/activate bowtie2
 
-#bowtie2-build human_genome/GCF_009914755.1_T2T-CHM13v2.0.fna human_genome/GCF_009914755.1_T2T-CHM13v2.0 ### DON'T RUN IT! IT TAKES A FEW HOURS TO BE EXECUTED
+mkdir human_genome
 
-bowtie2 -x human_genome/GCF_009914755.1_T2T-CHM13v2.0 -1 ${s}_filtered_1.fastq.gz -2 ${s}_filtered_2.fastq.gz -S ${s}.sam --very-sensitive-local -p 8 > ${s}_bowtie2.log 2>&1
+## DON'T RUN IT
+#wget https://api.ncbi.nlm.nih.gov/datasets/v2/genome/accession/GCF_009914755.1/download?include_annotation_type=GENOME_FASTA&include_annotation_type=GENOME_GFF&include_annotation_type=RNA_FASTA&include_annotation_type=CDS_FASTA&include_annotation_type=PROT_FASTA&include_annotation_type=SEQUENCE_REPORT&hydrated=FULLY_HYDRATED -O human_genome/GCF_009914755.1_T2T-CHM13v2.0.fna
+
+##bowtie2-build human_genome/GCF_009914755.1_T2T-CHM13v2.0.fna human_genome/GCF_009914755.1_T2T-CHM13v2.0 ### DON'T RUN IT! IT TAKES A FEW HOURS TO BE EXECUTED
+ 
+##bowtie2 -x human_genome/GCF_009914755.1_T2T-CHM13v2.0 -1 ${s}_filtered_1.fastq.gz -2 ${s}_filtered_2.fastq.gz -S ${s}.sam --very-sensitive-local -p 8 > ${s}_bowtie2.log 2>&1
 
 source ${path}/activate samtools
 
