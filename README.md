@@ -3,17 +3,16 @@
 
 #### Download (and install) anaconda
 ```
-## wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh
+wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
+bash Anaconda3-2024.10-1-Linux-x86_64.sh
 ```
 
-#### Do not say yes randomly:  type instead "miniconda3" !
+#### Do not say yes randomly:  type instead "anaconda3course" !
+#### When asked, type no
 
 ```
-rm Miniconda3-latest-Linux-x86_64.sh
 ## path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
-path="/home/ubuntu/TST_MGX/miniconda3/bin/"
+path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
 #### Raw data pre-processing (folder "1_pre-processing")
