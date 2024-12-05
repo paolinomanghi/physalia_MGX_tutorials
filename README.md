@@ -1,5 +1,5 @@
 ## physalia_metagenomics_2024
-#### lecture 1 - preprocessing
+### lecture 1 - preprocessing
 
 #### Download (and install) anaconda
 ```
@@ -72,8 +72,8 @@ samtools fastq ${s}.bothunmapped.sorted.bam -1 >(gzip > ${s}_filtered.final_1.fa
 for i in *.gz; do echo -ne "${i}\t"; zcat "$i" | wc -l; done
 ```
 
-##### -- end of lecture 1 - preprocessing
-#### Lecture 2 - MetaPhlAn profiling
+### -- end of lecture 1 - preprocessing
+### Lecture 2 - MetaPhlAn profiling
 ```
 path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
 ```
@@ -136,8 +136,8 @@ hclust2.py \
 --dpi 300
 ```
 
-##### End of Lecture - MetaPhlAn profiling
-#### Lecture 3 - What is GraPhlAn ?
+### End of Lecture - MetaPhlAn profiling
+### Lecture 3 - What is GraPhlAn ?
 ```
 path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
 ```
@@ -195,8 +195,8 @@ graphlan_annotate.py --annot annot_HMP_tree.txt hmptree.xml hmptree.annot.xml
 graphlan.py hmptree.annot.xml hmptree.png --dpi 150 --size 14 
 ```
 
-##### End of lecture 4 - What is GraPhlAn
-#### Lecture 5 - What is StrainPhlAn 
+### End of lecture 4 - What is GraPhlAn
+### Lecture 5 - What is StrainPhlAn 
 ```
 path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
 ```
@@ -248,8 +248,8 @@ add_metadata_tree.py -t output/RAxML_bestTree.t__SGB1877.StrainPhlAn4.tre -f met
 source ${path}/activate graphlan
 ${path}/../envs/mpa/bin/plot_tree_graphlan.py -t output/RAxML_bestTree.t__SGB1877.StrainPhlAn4.tre.metadata -m subjectID
 ```
-##### End of Lecture 4 - what is StrainPhlAn 
-#### Lecture 5 - What is PanPhlAn 
+### End of Lecture 4 - what is StrainPhlAn 
+### Lecture 5 - What is PanPhlAn 
 ```
 path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
 ```
@@ -294,9 +294,9 @@ panphlan_profiling.py -i map_results/ --o_matrix ./result_profile_erectale_annot
 
 #### Generate the file "metadata_erectale.txt" by taking information from https://github.com/SegataLab/panphlan/wiki/Tutorial-3_0
 #### Script in R to generate Heatmap and MDS
-##### End of Lecture 5 - What is PanPhlAn 
 
-#### Lecture 6 - HUMAnN 3
+### End of Lecture 5 - What is PanPhlAn 
+### Lecture 6 - HUMAnN 3
 ```
 path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
 ```
@@ -370,8 +370,8 @@ humann_join_tables -i merged -o merged/merged_pathcoverage.tsv --file_name pathc
 
 ```
 
-##### End of Lecture 6 - HUMAnN 3
-#### Lecture 7 - Metagenomic assembly
+### End of Lecture 6 - HUMAnN 3
+### Lecture 7 - Metagenomic assembly
 ```
 path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
 ```
