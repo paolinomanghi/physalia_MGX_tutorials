@@ -8,10 +8,8 @@ bash Anaconda3-2024.10-1-Linux-x86_64.sh
 ```
 
 #### Do not say yes randomly:  type instead "anaconda3course" !
-#### When asked, type no
 
 ```
-## path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
@@ -25,6 +23,9 @@ conda create -n samtools -c bioconda samtools
 
 #### Getting fastq example files "seq_1.fastq.gz" and "seq_2.fastq.gz" from https://github.com/biobakery/biobakery/wiki/kneaddata
 ```
+mkdir 1_pre-processing
+cd 1_pre-processing
+
 wget https://github.com/biobakery/kneaddata/files/4703820/input.zip
 unzip input.zip
 cd input
@@ -51,14 +52,12 @@ for i in *.fastq; do echo -ne "${i}\t"; cat "$i" | wc -l; done
 ```
 source ${path}/activate bowtie2
 
-mkdir human_genome
-
 ## DON'T RUN IT
-#wget https://api.ncbi.nlm.nih.gov/datasets/v2/genome/accession/GCF_009914755.1/download?include_annotation_type=GENOME_FASTA&include_annotation_type=GENOME_GFF&include_annotation_type=RNA_FASTA&include_annotation_type=CDS_FASTA&include_annotation_type=PROT_FASTA&include_annotation_type=SEQUENCE_REPORT&hydrated=FULLY_HYDRATED -O human_genome/GCF_009914755.1_T2T-CHM13v2.0.fna
+##wget https://api.ncbi.nlm.nih.gov/datasets/v2/genome/accession/GCF_009914755.1/download?include_annotation_type=GENOME_FASTA&include_annotation_type=GENOME_GFF&include_annotation_type=RNA_FASTA&include_annotation_type=CDS_FASTA&include_annotation_type=PROT_FASTA&include_annotation_type=SEQUENCE_REPORT&hydrated=FULLY_HYDRATED -O human_genome/GCF_009914755.1_T2T-CHM13v2.0.fna
 
-##bowtie2-build human_genome/GCF_009914755.1_T2T-CHM13v2.0.fna human_genome/GCF_009914755.1_T2T-CHM13v2.0 ### DON'T RUN IT! IT TAKES A FEW HOURS TO BE EXECUTED
- 
-##bowtie2 -x human_genome/GCF_009914755.1_T2T-CHM13v2.0 -1 ${s}_filtered_1.fastq.gz -2 ${s}_filtered_2.fastq.gz -S ${s}.sam --very-sensitive-local -p 8 > ${s}_bowtie2.log 2>&1
+##bowtie2-build /home/ubuntu/shotgun_course/human_genome/GCF_009914755.1_T2T-CHM13v2.0.fna human_genome/GCF_009914755.1_T2T-CHM13v2.0 ### DON'T RUN IT! IT TAKES A FEW HOURS TO BE EXECUTED
+
+bowtie2 -x /home/ubuntu/shotgun_course/human_genome/GCF_009914755.1_T2T-CHM13v2.0 -1 ${s}_filtered_1.fastq.gz -2 ${s}_filtered_2.fastq.gz -S ${s}.sam --very-sensitive-local -p 8 > ${s}_bowtie2.log 2>&1
 
 source ${path}/activate samtools
 
@@ -82,6 +81,9 @@ path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin
 source ${path}/activate
 conda create -n mpa -c conda-forge -c bioconda python=3.7 metaphlan=4.1.0
 source ${path}/activate mpa
+
+mkdir 2_metaphlan
+cd 2_metaphlan
 ```
  
 #### Getting example files (6 fasta files) from https://github.com/biobakery/biobakery/wiki/metaphlan4
@@ -146,6 +148,9 @@ path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin
 source ${path}/activate
 conda create -n graphlan -c bioconda graphlan
 source ${path}/activate graphlan
+
+mkdir 3_graphlan
+cd 3_graphlan
 ```
 
 #### Getting example files from https://github.com/biobakery/graphlan/tree/master/examples/guide
@@ -203,6 +208,9 @@ path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin
 #### StrainPhlAn for strain-level profiling (folder "3_strainphlan")
 ```
 source ${path}/activate mpa
+
+mkdir 3_strainphlan
+cd 3_strainphlan
 ```
 
 #### Getting example files (6 fastq files) from https://github.com/biobakery/MetaPhlAn/wiki/StrainPhlAn-4.1
@@ -253,7 +261,7 @@ ${path}/../envs/mpa/bin/plot_tree_graphlan.py -t output/RAxML_bestTree.t__SGB187
 path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
 ```
 
-#### PanPhlAn for Pangenome-based Phylogenomic Analysis (folder "5_panphlan")
+#### PanPhlAn for Pangenome-based Phylogenomic Analysis (folder "4_panphlan")
 ```
 source ${path}/activate
 
@@ -261,6 +269,9 @@ conda create -n panphlan -c bioconda panphlan
 conda install -c conda-forge matplotlib
 
 source ${path}/activate panphlan
+
+mkdir 4_panphlan
+cd 4_panphlan
 ```
 
 #### Getting fastq example files from https://github.com/SegataLab/panphlan/wiki/Tutorial-3_0
@@ -300,13 +311,16 @@ panphlan_profiling.py -i map_results/ --o_matrix ./result_profile_erectale_annot
 path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
 ```
 
-#### HUMAnN for profiling the abundance of microbial metabolic pathways and other molecular functions (folder "6_humann")
+#### HUMAnN for profiling the abundance of microbial metabolic pathways and other molecular functions (folder "5_humann")
 ```
 source ${path}/activate
 
 conda create -n humann -c bioconda python=3.9
 source ${path}/activate humann
 conda install -c biobakery humann
+
+mkdir 5_humann
+cd 5_humann
 ```
 
 #### Test the local HUMAnN environment
@@ -375,12 +389,15 @@ humann_join_tables -i merged -o merged/merged_pathcoverage.tsv --file_name pathc
 path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
 ```
 
-#### Megahit for de novo metagenomic assembly (folder "7_assembly")
+#### Megahit for de novo metagenomic assembly (folder "6_assembly")
 ```
 source ${path}/activate
 
 conda create -n megahit -c bioconda megahit
 source ${path}/activate megahit
+
+mkdir 6_assembly
+cd 6_assembly
 ```
 
 #### Getting example of fastq file from https://github.com/voutcn/megahit/wiki/An-example-of-real-assembly
