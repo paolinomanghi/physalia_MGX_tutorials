@@ -8,11 +8,11 @@ cd ~/Share
 
 #### Step 2: set up anaconda and check whether everything's visible !
 ```
-DON'T INSTALL IT
+DON'T INSTALL IT...
 ##wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
 ##bash Anaconda3-2024.10-1-Linux-x86_64.sh
 
-WE ALREADY SET UP A VERSION
+...WE HAVE ALREADY SET UP A VERSION
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 source ${path}/activate
 ```
@@ -57,7 +57,6 @@ for i in *.fastq; do echo -ne "${i}\t"; cat "$i" | wc -l; done
 #### Getting human genome and generate bowtie2 index
 #### Getting the file GCF_009914755.1_T2T-CHM13v2.0.fna from https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_009914755.1/GCF_009914755.1_T2T-CHM13v2.0.fna
 ```
- 
 human_gen_path="/home/ubuntu/shotgun_course/human_genome/"
 conda deactivate
 source ${path}/activate bowtie2
@@ -115,6 +114,15 @@ wget https://github.com/biobakery/MetaPhlAn/releases/download/4.0.2/SRS014470-To
 wget https://github.com/biobakery/MetaPhlAn/releases/download/4.0.2/SRS014472-Buccal_mucosa.fasta.gz
 
 s="SRS014476-Supragingival_plaque"
+```
+
+#### Let's have a look a the MetaPhlAn parameters
+```
+metaphlan -h
+```
+
+#### Let's now run MetaPhlAn 
+```
 metaphlan ${s}.fasta.gz --input_type fasta --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt \
     --stat_q 0.1 --nproc 8 --bowtie2db ${mpa_db} --index ${db_version}
 
@@ -276,6 +284,11 @@ mkdir -p reference_genomes
 wget -P reference_genomes/ http://cmprod1.cibio.unitn.it/biobakery4/github_strainphlan4/reference_genomes/G000273725.fna.bz2
 ```
 
+#### Let's have a look at the StrainPhlAn params
+```
+strainphlan -h
+```
+
 #### Build the multiple sequence alignment and the phylogenetic tree:
 ```
 mkdir -p output
@@ -349,7 +362,7 @@ cd ~/Share
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
-#### HUMAnN for profiling the abundance of microbial metabolic pathways and other molecular functions (folder "5_humann")
+#### HUMAnN for profiling the abundance of microbial metabolic pathways and other molecular functions (folder "6_humann")
 ```
 conda deactivate
 source ${path}/activate
@@ -358,8 +371,8 @@ source ${path}/activate
 source ${path}/activate humann
 ## conda install -c biobakery humann ## DON'T DO IT. WE DID ALREADY
 
-mkdir 5_humann
-cd 5_humann
+mkdir 6_humann
+cd 6_humann
 ```
 
 #### Test the local HUMAnN environment
@@ -368,11 +381,16 @@ humann_test
 humann_config
 ```
 
-#### Download databases
+#### Let's look at the HUMAnN parameters !
 ```
-humann_databases --download chocophlan full humann_dbs --update-config yes
-humann_databases --download uniref uniref90_diamond humann_dbs --update-config yes
-humann_databases --download utility_mapping full humann_dbs --update-config yes
+humann -h
+```
+
+#### The HUMAnN databases
+```
+## humann_databases --download chocophlan full humann_dbs --update-config yes ## DON'T DO IT. WE DID ALREADY
+## humann_databases --download uniref uniref90_diamond humann_dbs --update-config yes ## DON'T DO IT. WE DID ALREADY
+## humann_databases --download utility_mapping full humann_dbs --update-config yes ## DON'T DO IT. WE DID ALREADY
 ```
 
 #### Getting example of fastq file from EBI
@@ -383,7 +401,7 @@ wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR154/096/SRR15408396/SRR15408396.fastq
 #### Run humann to perform functional profiling
 ```
 s="SRR15408396"
-humann --input ${s}.fastq.gz --output ${s} --threads 8
+humann --input ${s}.fastq.gz --output ${s} --threads 8 
 ```
 
 #### Manipulating HUMAnN output tables
@@ -428,7 +446,7 @@ cd ~/Share
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
-#### Megahit for de novo metagenomic assembly (folder "6_assembly")
+#### Megahit for de novo metagenomic assembly (folder "7_assembly")
 ```
 conda deactivate
 source ${path}/activate
@@ -436,13 +454,18 @@ source ${path}/activate
 ## conda create -n megahit -c bioconda megahit ## DON'T DO IT. WE DID ALREADY
 source ${path}/activate megahit
 
-mkdir 6_assembly
-cd 6_assembly
+mkdir 7_assembly
+cd 7_assembly
 ```
 
 #### Getting example of fastq file from https://github.com/voutcn/megahit/wiki/An-example-of-real-assembly
 ```
 wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR341/SRR341725/SRR341725_[12].fastq.gz
+```
+
+#### The megahit paramaters:
+```
+megahit -h
 ```
 
 #### Run megahit to generate metagenomic assembly
@@ -459,6 +482,11 @@ megahit -1 ${s}_1.fastq.gz -2 ${s}_2.fastq.gz -o ${s}.megahit_asm -t 8
 python megahit2spades.py SRR341725.megahit_asm/final.contigs.fa SRR341725.megahit_asm/contigs.fasta
 python filter_contigs.py SRR341725.megahit_asm/contigs.fasta SRR341725.megahit_asm/contigs_filtered.fasta
 python filter_contigs.py SRR341725.megahit_asm/contigs.fasta SRR341725.megahit_asm/contigs_filtered_50000.fasta -l 50000
+```
+
+#### PROKKA: parameters
+```
+prokka -h
 ```
 
 #### Run prokka for rapid prokaryotic genome annotation
