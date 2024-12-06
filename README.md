@@ -81,6 +81,7 @@ samtools fastq ${s}.bothunmapped.sorted.bam -1 >(gzip > ${s}_filtered.final_1.fa
 
 for i in *.gz; do echo -ne "${i}\t"; zcat "$i" | wc -l; done
 ```
+#### Did the preprocessing produce the same exact number of reads in R1 and R2 ?
 
 ### -- end of lecture 1 - preprocessing
 ### Lecture 2 - MetaPhlAn profiling
