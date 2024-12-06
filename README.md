@@ -1,19 +1,24 @@
 ## physalia_metagenomics_2024
 ### lecture 1 - preprocessing
 
-#### Download (and install) anaconda
+#### Step 1: get into the right place
+```
+cd /Share
+```
+
+#### Step 2: Download (and install) anaconda
 ```
 wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
 bash Anaconda3-2024.10-1-Linux-x86_64.sh
 ```
 
-#### Do not say yes randomly:  type instead "anaconda3course" !
+#### Do not say yes randomly: type instead "anaconda3course" !
 
 ```
-path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
+path="/home/user1/Share/anaconda3course/bin/"
 ```
-
-#### Raw data pre-processing (folder "1_pre-processing")
+#### NOTE: the path contains your username (user1, user2, ... user67). Modify it accordingly
+#### Next step: raw data pre-processing (folder "1_pre-processing")
 ```
 source ${path}/activate
 conda create -n trimmomatic -c bioconda trimmomatic
@@ -50,14 +55,16 @@ for i in *.fastq; do echo -ne "${i}\t"; cat "$i" | wc -l; done
 #### Getting human genome and generate bowtie2 index
 #### Getting the file GCF_009914755.1_T2T-CHM13v2.0.fna from https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_009914755.1/GCF_009914755.1_T2T-CHM13v2.0.fna
 ```
+ 
+human_gen_path="/home/ubuntu/shotgun_course/human_genome/"
 source ${path}/activate bowtie2
 
-## DON'T RUN IT
-##wget https://api.ncbi.nlm.nih.gov/datasets/v2/genome/accession/GCF_009914755.1/download?include_annotation_type=GENOME_FASTA&include_annotation_type=GENOME_GFF&include_annotation_type=RNA_FASTA&include_annotation_type=CDS_FASTA&include_annotation_type=PROT_FASTA&include_annotation_type=SEQUENCE_REPORT&hydrated=FULLY_HYDRATED -O human_genome/GCF_009914755.1_T2T-CHM13v2.0.fna
+##VERSION 4 HOURS LONG:
+## mkdir -p ../human_genome/
+##bowtie2-build ${human_gen_path}GCF_009914755.1_T2T-CHM13v2.0.fna ../human_genome/GCF_009914755.1_T2T-CHM13v2.0 ### DON'T RUN IT! IT TAKES A FEW HOURS TO BE EXECUTED
 
-##bowtie2-build /home/ubuntu/shotgun_course/human_genome/GCF_009914755.1_T2T-CHM13v2.0.fna human_genome/GCF_009914755.1_T2T-CHM13v2.0 ### DON'T RUN IT! IT TAKES A FEW HOURS TO BE EXECUTED
-
-bowtie2 -x /home/ubuntu/shotgun_course/human_genome/GCF_009914755.1_T2T-CHM13v2.0 -1 ${s}_filtered_1.fastq.gz -2 ${s}_filtered_2.fastq.gz -S ${s}.sam --very-sensitive-local -p 8 > ${s}_bowtie2.log 2>&1
+##VERSION 10 SECONDS LONG
+bowtie2 -x ${human_gen_path}GCF_009914755.1_T2T-CHM13v2.0 -1 ${s}_filtered_1.fastq.gz -2 ${s}_filtered_2.fastq.gz -S ${s}.sam --very-sensitive-local -p 8 > ${s}_bowtie2.log 2>&1
 
 source ${path}/activate samtools
 
