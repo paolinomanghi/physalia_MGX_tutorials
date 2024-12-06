@@ -3,7 +3,7 @@
 
 #### Step 1: get into the right place
 ```
-cd /Share
+cd ~/Share
 ```
 
 #### Step 2: set up anaconda and check whether everything's visible !
@@ -84,6 +84,7 @@ for i in *.gz; do echo -ne "${i}\t"; zcat "$i" | wc -l; done
 ### -- end of lecture 1 - preprocessing
 ### Lecture 2 - MetaPhlAn profiling
 ```
+cd ~/Share
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
@@ -157,6 +158,7 @@ hclust2.py \
 ### End of Lecture - MetaPhlAn profiling
 ### Lecture 3 - What is GraPhlAn ?
 ```
+cd ~/Share
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
@@ -220,6 +222,7 @@ graphlan.py hmptree.annot.xml hmptree.png --dpi 150 --size 14
 ### End of lecture 4 - What is GraPhlAn
 ### Lecture 5 - What is StrainPhlAn 
 ```
+cd ~/Share
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
@@ -276,6 +279,7 @@ ${path}/../envs/mpa/bin/plot_tree_graphlan.py -t output/RAxML_bestTree.t__SGB187
 ### End of Lecture 4 - what is StrainPhlAn 
 ### Lecture 5 - What is PanPhlAn 
 ```
+cd ~/Share
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
@@ -325,6 +329,7 @@ panphlan_profiling.py -i map_results/ --o_matrix ./result_profile_erectale_annot
 ### End of Lecture 5 - What is PanPhlAn 
 ### Lecture 6 - HUMAnN 3
 ```
+cd ~/Share
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
@@ -397,12 +402,12 @@ cp SRR15408398/SRR15408398_pathcoverage.tsv merged/
 humann_join_tables -i merged -o merged/merged_genefamilies-relab.tsv --file_name genefamilies-relab
 humann_join_tables -i merged -o merged/merged_pathabundance-relab.tsv --file_name pathabundance-relab
 humann_join_tables -i merged -o merged/merged_pathcoverage.tsv --file_name pathcoverage
-
 ```
 
 ### End of Lecture 6 - HUMAnN 3
 ### Lecture 7 - Metagenomic assembly
 ```
+cd ~/Share
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
