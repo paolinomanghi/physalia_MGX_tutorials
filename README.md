@@ -8,16 +8,14 @@ cd /Share
 
 #### Step 2: Download (and install) anaconda
 ```
-wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
-bash Anaconda3-2024.10-1-Linux-x86_64.sh
+DON'T INSTALL IT
+##wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
+##bash Anaconda3-2024.10-1-Linux-x86_64.sh
+
+WE ALREADY SET UP A VERSION
+path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
-#### Do not say yes randomly: type instead "anaconda3course" !
-
-```
-path="/home/user1/Share/anaconda3course/bin/"
-```
-#### NOTE: the path contains your username (user1, user2, ... user67). Modify it accordingly
 #### Next step: raw data pre-processing (folder "1_pre-processing")
 ```
 source ${path}/activate
@@ -81,7 +79,7 @@ for i in *.gz; do echo -ne "${i}\t"; zcat "$i" | wc -l; done
 ### -- end of lecture 1 - preprocessing
 ### Lecture 2 - MetaPhlAn profiling
 ```
-path="/home/user1/Share/anaconda3course/bin/"
+path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
 #### MetaPhlAn for taxonomic profiling (folder "2_metaphlan")
@@ -148,7 +146,7 @@ hclust2.py \
 ### End of Lecture - MetaPhlAn profiling
 ### Lecture 3 - What is GraPhlAn ?
 ```
-path="/home/user1/Share/anaconda3course/bin/"
+path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
 #### GraPhlAn for circular representations of taxonomic and phylogenetic trees (folder "3_graphlan")
@@ -210,7 +208,7 @@ graphlan.py hmptree.annot.xml hmptree.png --dpi 150 --size 14
 ### End of lecture 4 - What is GraPhlAn
 ### Lecture 5 - What is StrainPhlAn 
 ```
-path="/home/user1/Share/anaconda3course/bin/"
+path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
 #### StrainPhlAn for strain-level profiling (folder "3_strainphlan")
@@ -266,7 +264,7 @@ ${path}/../envs/mpa/bin/plot_tree_graphlan.py -t output/RAxML_bestTree.t__SGB187
 ### End of Lecture 4 - what is StrainPhlAn 
 ### Lecture 5 - What is PanPhlAn 
 ```
-path="/home/user1/Share/anaconda3course/bin/"
+path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
 #### PanPhlAn for Pangenome-based Phylogenomic Analysis (folder "4_panphlan")
@@ -316,7 +314,7 @@ panphlan_profiling.py -i map_results/ --o_matrix ./result_profile_erectale_annot
 ### End of Lecture 5 - What is PanPhlAn 
 ### Lecture 6 - HUMAnN 3
 ```
-path="/home/user1/Share/anaconda3course/bin/"
+path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
 #### HUMAnN for profiling the abundance of microbial metabolic pathways and other molecular functions (folder "5_humann")
@@ -394,7 +392,7 @@ humann_join_tables -i merged -o merged/merged_pathcoverage.tsv --file_name pathc
 ### End of Lecture 6 - HUMAnN 3
 ### Lecture 7 - Metagenomic assembly
 ```
-path="/home/user1/Share/anaconda3course/bin/"
+path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
 #### Megahit for de novo metagenomic assembly (folder "6_assembly")
