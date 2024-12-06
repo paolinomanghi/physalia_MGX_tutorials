@@ -105,6 +105,7 @@ cd 2_metaphlan
 #### Getting example files (6 fasta files) from https://github.com/biobakery/biobakery/wiki/metaphlan4
 ```
 mpa_db="/home/ubuntu/shotgun_course/metaphlan_databases/"
+db_version="mpa_vJun23_CHOCOPhlAnSGB_202403"
 
 wget https://github.com/biobakery/MetaPhlAn/releases/download/4.0.2/SRS014476-Supragingival_plaque.fasta.gz
 wget https://github.com/biobakery/MetaPhlAn/releases/download/4.0.2/SRS014494-Posterior_fornix.fasta.gz
@@ -115,15 +116,18 @@ wget https://github.com/biobakery/MetaPhlAn/releases/download/4.0.2/SRS014472-Bu
 
 s="SRS014476-Supragingival_plaque"
 metaphlan ${s}.fasta.gz --input_type fasta --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt \
-    --stat_q 0.1 --nproc 8 --bowtie2db ${mpa_db}
+    --stat_q 0.1 --nproc 8 --bowtie2db ${mpa_db} --index ${db_version}
 
-# If this is your first time running MetaPhlAn, the first step involves downloading, decompressing, and indexing the MetaPhlAn marker gene database. This process may take ~30 minutes, but only needs to be performed once.
-
-s="SRS014494-Posterior_fornix"; metaphlan ${s}.fasta.gz --input_type fasta --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --stat_q 0.1 --nproc 8 --bowtie2db ${mpa_db}
-s="SRS014459-Stool"; metaphlan ${s}.fasta.gz --input_type fasta --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --stat_q 0.1 --nproc 8 --bowtie2db ${mpa_db}
-s="SRS014464-Anterior_nares"; metaphlan ${s}.fasta.gz --input_type fasta --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --stat_q 0.1 --nproc 8 --bowtie2db ${mpa_db}
-s="SRS014470-Tongue_dorsum"; metaphlan ${s}.fasta.gz --input_type fasta --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 --bowtie2db ${mpa_db}
-s="SRS014472-Buccal_mucosa"; metaphlan ${s}.fasta.gz --input_type fasta --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 --bowtie2db ${mpa_db}
+s="SRS014494-Posterior_fornix"; metaphlan ${s}.fasta.gz --input_type fasta --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt \
+    --stat_q 0.1 --nproc 8 --bowtie2db ${mpa_db} --index ${db_version}
+s="SRS014459-Stool"; metaphlan ${s}.fasta.gz --input_type fasta --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt \
+    --stat_q 0.1 --nproc 8 --bowtie2db ${mpa_db} --index ${db_version}
+s="SRS014464-Anterior_nares"; metaphlan ${s}.fasta.gz --input_type fasta --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt \
+    --stat_q 0.1 --nproc 8 --bowtie2db ${mpa_db} --index ${db_version}
+s="SRS014470-Tongue_dorsum"; metaphlan ${s}.fasta.gz --input_type fasta --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt \
+    --stat_q 0.1 --nproc 8 --bowtie2db ${mpa_db} --index ${db_version}
+s="SRS014472-Buccal_mucosa"; metaphlan ${s}.fasta.gz --input_type fasta --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt \
+    --stat_q 0.1 --nproc 8 --bowtie2db ${mpa_db} --index ${db_version}
 
 merge_metaphlan_tables.py *_profile.txt > merged_abundance_table.txt
 ```
@@ -133,9 +137,12 @@ merge_metaphlan_tables.py *_profile.txt > merged_abundance_table.txt
 wget http://cmprod1.cibio.unitn.it/biobakery4/github_strainphlan4/fastq/SRS013951.fastq.bz2
 
 s="SRS013951";
-metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --stat_q 0.1 --nproc 8 --bowtie2db ${mpa_db}
-metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}_unclas.bowtie2.bz2 --samout ${s}_unclas.sam.bz2 -o ${s}_unclas_profile.txt --stat_q 0.1 --nproc 8 --unclassified_estimation --bowtie2db ${mpa_db}
-metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}_sub.bowtie2.bz2 --samout ${s}_sub.sam.bz2 -o ${s}_sub_profile.txt --stat_q 0.1 --nproc 8 --subsampling 1000 --bowtie2db ${mpa_db}
+metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --stat_q 0.1 \
+    --nproc 8 --bowtie2db ${mpa_db} --index ${db_version}
+metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}_unclas.bowtie2.bz2 --samout ${s}_unclas.sam.bz2 -o ${s}_unclas_profile.txt \
+    --stat_q 0.1 --nproc 8 --unclassified_estimation --bowtie2db ${mpa_db} --index ${db_version}
+metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}_sub.bowtie2.bz2 --samout ${s}_sub.sam.bz2 -o ${s}_sub_profile.txt \
+    --stat_q 0.1 --nproc 8 --subsampling 1000 --bowtie2db ${mpa_db} --index ${db_version}
 ```
 
 #### Generate heatmap with hclust2
