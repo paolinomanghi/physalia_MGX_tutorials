@@ -490,7 +490,13 @@ megahit -h
 #### Run megahit to generate metagenomic assembly
 ```
 s="SRR341725"
-megahit -1 ${s}_1.fastq.gz -2 ${s}_2.fastq.gz -o ${s}.megahit_asm -t 8
+## MEGAHIT WILL TAKE A FEW HOURS:
+## megahit -1 ${s}_1.fastq.gz -2 ${s}_2.fastq.gz -o ${s}.megahit_asm -t 8
+
+## FOR NOW WE CAN COPY THE RESULTS FROM MEGAHIT
+mkdir -p ${s}.megahit_asm/
+cp /home/ubuntu/course_backup/course/7_assembly/${s}.megahit_asm/final.contigs.fa  ${s}.megahit_asm/
+cp /home/ubuntu/course_backup/course/7_assembly/${s}.megahit_asm/contigs.fasta  ${s}.megahit_asm/
 ```
 
 #### Do some post-processing on the contigs file
@@ -498,9 +504,9 @@ megahit -1 ${s}_1.fastq.gz -2 ${s}_2.fastq.gz -o ${s}.megahit_asm -t 8
 ## conda install -c conda-forge biopython ## DON'T DO IT. WE DID ALREADY
 ## conda install -c anaconda pandas ## DON'T DO IT. WE DID ALREADY
 
-python megahit2spades.py SRR341725.megahit_asm/final.contigs.fa SRR341725.megahit_asm/contigs.fasta
-python filter_contigs.py SRR341725.megahit_asm/contigs.fasta SRR341725.megahit_asm/contigs_filtered.fasta
-python filter_contigs.py SRR341725.megahit_asm/contigs.fasta SRR341725.megahit_asm/contigs_filtered_50000.fasta -l 50000
+python megahit2spades.py ${s}.megahit_asm/final.contigs.fa ${s}.megahit_asm/contigs.fasta
+python filter_contigs.py ${s}.megahit_asm/contigs.fasta ${s}.megahit_asm/contigs_filtered.fasta
+python filter_contigs.py ${s}.megahit_asm/contigs.fasta ${s}.megahit_asm/contigs_filtered_50000.fasta -l 50000
 ```
 
 #### PROKKA: parameters
@@ -514,6 +520,5 @@ prokka -h
 
 conda deactivate
 source ${path}/activate prokka
-prokka --outdir ${s}_prokka --centre CDC --compliant --cpus 8 SRR341725.megahit_asm/contigs.fasta
-
+prokka --outdir ${s}_prokka --centre CDC --compliant --cpus 8 ${s}.megahit_asm/contigs_filtered.fasta
 ```
