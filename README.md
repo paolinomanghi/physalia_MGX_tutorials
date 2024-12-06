@@ -92,6 +92,7 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 
 #### MetaPhlAn for taxonomic profiling (folder "2_metaphlan")
 ```
+conda deactivate
 source ${path}/activate
 ##conda create -n mpa -c conda-forge -c bioconda python=3.7 metaphlan=4.1.0 ## DON'T DO IT. WE DID ALREADY
 
@@ -167,6 +168,7 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 
 #### GraPhlAn for circular representations of taxonomic and phylogenetic trees (folder "3_graphlan")
 ```
+conda deactivate
 source ${path}/activate
 
 ## conda create -n graphlan -c bioconda graphlan ## DON'T DO IT. WE DID ALREADY
@@ -231,6 +233,8 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 
 #### StrainPhlAn for strain-level profiling (folder "3_strainphlan")
 ```
+conda deactivate
+source ${path}/activate
 source ${path}/activate mpa
 
 mkdir 3_strainphlan
@@ -276,6 +280,7 @@ strainphlan -s *.json.bz2 -m db_markers/t__SGB1877.fna -r reference_genomes/G000
 wget http://cmprod1.cibio.unitn.it/biobakery4/github_strainphlan4/fastq/metadata.txt
 add_metadata_tree.py -t output/RAxML_bestTree.t__SGB1877.StrainPhlAn4.tre -f metadata.txt -m subjectID --string_to_remove .fastq.bz2
 
+conda deactivate
 source ${path}/activate graphlan
 ${path}/../envs/mpa/bin/plot_tree_graphlan.py -t output/RAxML_bestTree.t__SGB1877.StrainPhlAn4.tre.metadata -m subjectID
 ```
@@ -288,6 +293,7 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 
 #### PanPhlAn for Pangenome-based Phylogenomic Analysis (folder "4_panphlan")
 ```
+conda deactivate
 source ${path}/activate
 
 ## conda create -n panphlan -c bioconda panphlan ## DON'T DO IT. WE DID ALREADY
@@ -338,6 +344,7 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 
 #### HUMAnN for profiling the abundance of microbial metabolic pathways and other molecular functions (folder "5_humann")
 ```
+conda deactivate
 source ${path}/activate
 
 ## conda create -n humann -c bioconda python=3.9 ## DON'T DO IT. WE DID ALREADY
@@ -416,6 +423,7 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 
 #### Megahit for de novo metagenomic assembly (folder "6_assembly")
 ```
+conda deactivate
 source ${path}/activate
 
 ## conda create -n megahit -c bioconda megahit ## DON'T DO IT. WE DID ALREADY
@@ -450,6 +458,7 @@ python filter_contigs.py SRR341725.megahit_asm/contigs.fasta SRR341725.megahit_a
 ```
 ## conda create -n prokka -c bioconda prokka ## DON'T DO IT. WE DID ALREADY
 
+conda deactivate
 source ${path}/activate prokka
 prokka --outdir ${s}_prokka --centre CDC --compliant --cpus 8 SRR341725.megahit_asm/contigs.fasta
 
