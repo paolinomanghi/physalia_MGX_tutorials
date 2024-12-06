@@ -14,7 +14,6 @@ DON'T INSTALL IT
 
 WE ALREADY SET UP A VERSION
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
-
 source ${path}/activate
 ```
 
@@ -25,7 +24,6 @@ conda info --envs
 #### Did you see a list of 10 dedicated environments? They cover as many foundamental steps 
 #### Step 3: raw data pre-processing on fastq example files "seq_1.fastq.gz" and "seq_2.fastq.gz" from https://github.com/biobakery/biobakery/wiki/kneaddata
 ```
-source ${path}/activate
 
 ##conda create -n trimmomatic -c bioconda trimmomatic ## DON'T DO IT. WE DID ALREADY
 ##conda create -n bowtie2 -c bioconda bowtie2 ## DON'T DO IT. WE DID ALREADY
@@ -61,6 +59,7 @@ for i in *.fastq; do echo -ne "${i}\t"; cat "$i" | wc -l; done
 ```
  
 human_gen_path="/home/ubuntu/shotgun_course/human_genome/"
+conda deactivate
 source ${path}/activate bowtie2
 
 ##VERSION 4 HOURS LONG:
@@ -70,6 +69,7 @@ source ${path}/activate bowtie2
 ##VERSION 10 SECONDS LONG
 bowtie2 -x ${human_gen_path}GCF_009914755.1_T2T-CHM13v2.0 -1 ${s}_filtered_1.fastq.gz -2 ${s}_filtered_2.fastq.gz -S ${s}.sam --very-sensitive-local -p 8 > ${s}_bowtie2.log 2>&1
 
+conda deactivate
 source ${path}/activate samtools
 
 samtools view -bS ${s}.sam > ${s}.bam
@@ -139,6 +139,7 @@ metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}_sub.bowtie2.bz2 --
 ```
 ## conda create -n hclust2 -c bioconda hclust2 python=2.7 ## DON'T DO IT. WE DID ALREADY
 
+conda deactivate
 source ${path}/activate hclust2
 grep -E "s__|SRS" merged_abundance_table.txt | grep -v "t__" | sed "s/^.*|//g" | sed "s/SRS[0-9]*-//g" > merged_abundance_table_species.txt
 
