@@ -47,7 +47,8 @@ source ${path}/activate trimmomatic
 
 trimmomatic PE -threads 8 -phred33 -trimlog ${s}_trimmomatic.log ${s}1.fastq ${s}2.fastq \
 ${s}_filtered_1.fastq ${s}_unpaired_1.fastq ${s}_filtered_2.fastq ${s}_unpaired_2.fastq \
-ILLUMINACLIP:${path}/../envs/trimmomatic/share/trimmomatic/adapters/TruSeq3-PE-2.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:15 MINLEN:75
+ILLUMINACLIP:${path}/../envs/trimmomatic/share/trimmomatic/adapters/TruSeq3-PE-2.fa:2:30:10 \
+LEADING:20 TRAILING:20 SLIDINGWINDOW:4:15 MINLEN:75
 
 for i in *.fastq; do echo -ne "${i}\t"; cat "$i" | wc -l; done
 ```
@@ -80,7 +81,7 @@ for i in *.gz; do echo -ne "${i}\t"; zcat "$i" | wc -l; done
 ### -- end of lecture 1 - preprocessing
 ### Lecture 2 - MetaPhlAn profiling
 ```
-path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
+path="/home/user1/Share/anaconda3course/bin/"
 ```
 
 #### MetaPhlAn for taxonomic profiling (folder "2_metaphlan")
@@ -147,7 +148,7 @@ hclust2.py \
 ### End of Lecture - MetaPhlAn profiling
 ### Lecture 3 - What is GraPhlAn ?
 ```
-path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
+path="/home/user1/Share/anaconda3course/bin/"
 ```
 
 #### GraPhlAn for circular representations of taxonomic and phylogenetic trees (folder "3_graphlan")
@@ -209,7 +210,7 @@ graphlan.py hmptree.annot.xml hmptree.png --dpi 150 --size 14
 ### End of lecture 4 - What is GraPhlAn
 ### Lecture 5 - What is StrainPhlAn 
 ```
-path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
+path="/home/user1/Share/anaconda3course/bin/"
 ```
 
 #### StrainPhlAn for strain-level profiling (folder "3_strainphlan")
@@ -265,7 +266,7 @@ ${path}/../envs/mpa/bin/plot_tree_graphlan.py -t output/RAxML_bestTree.t__SGB187
 ### End of Lecture 4 - what is StrainPhlAn 
 ### Lecture 5 - What is PanPhlAn 
 ```
-path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
+path="/home/user1/Share/anaconda3course/bin/"
 ```
 
 #### PanPhlAn for Pangenome-based Phylogenomic Analysis (folder "4_panphlan")
@@ -315,7 +316,7 @@ panphlan_profiling.py -i map_results/ --o_matrix ./result_profile_erectale_annot
 ### End of Lecture 5 - What is PanPhlAn 
 ### Lecture 6 - HUMAnN 3
 ```
-path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
+path="/home/user1/Share/anaconda3course/bin/"
 ```
 
 #### HUMAnN for profiling the abundance of microbial metabolic pathways and other molecular functions (folder "5_humann")
@@ -393,7 +394,7 @@ humann_join_tables -i merged -o merged/merged_pathcoverage.tsv --file_name pathc
 ### End of Lecture 6 - HUMAnN 3
 ### Lecture 7 - Metagenomic assembly
 ```
-path="/shares/CIBIO-Storage/CM/scratch/users/e.pasolli/tools/anaconda3course/bin"
+path="/home/user1/Share/anaconda3course/bin/"
 ```
 
 #### Megahit for de novo metagenomic assembly (folder "6_assembly")
