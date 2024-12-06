@@ -6,7 +6,7 @@
 cd /Share
 ```
 
-#### Step 2: Download (and install) anaconda
+#### Step 2: set up anaconda and check whether everything's visible !
 ```
 DON'T INSTALL IT
 ##wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
@@ -14,18 +14,23 @@ DON'T INSTALL IT
 
 WE ALREADY SET UP A VERSION
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
+
+source ${path}/activate
 ```
 
-#### Next step: raw data pre-processing (folder "1_pre-processing")
+#### With the following command, you should a list of all the environments that have been created for this course
+```
+conda info --envs
+```
+
+#### Step 3: raw data pre-processing on fastq example files "seq_1.fastq.gz" and "seq_2.fastq.gz" from https://github.com/biobakery/biobakery/wiki/kneaddata
 ```
 source ${path}/activate
-conda create -n trimmomatic -c bioconda trimmomatic
-conda create -n bowtie2 -c bioconda bowtie2
-conda create -n samtools -c bioconda samtools
-```
 
-#### Getting fastq example files "seq_1.fastq.gz" and "seq_2.fastq.gz" from https://github.com/biobakery/biobakery/wiki/kneaddata
-```
+##conda create -n trimmomatic -c bioconda trimmomatic ## DON'T DO IT. WE DID ALREADY
+##conda create -n bowtie2 -c bioconda bowtie2 ## DON'T DO IT. WE DID ALREADY
+##conda create -n samtools -c bioconda samtools ## DON'T DO IT. WE DID ALREADY
+
 mkdir 1_pre-processing
 cd 1_pre-processing
 
@@ -85,7 +90,8 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 #### MetaPhlAn for taxonomic profiling (folder "2_metaphlan")
 ```
 source ${path}/activate
-conda create -n mpa -c conda-forge -c bioconda python=3.7 metaphlan=4.1.0
+##conda create -n mpa -c conda-forge -c bioconda python=3.7 metaphlan=4.1.0 ## DON'T DO IT. WE DID ALREADY
+
 source ${path}/activate mpa
 
 mkdir 2_metaphlan
@@ -126,7 +132,8 @@ metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}_sub.bowtie2.bz2 --
 
 #### Generate heatmap with hclust2
 ```
-conda create -n hclust2 -c bioconda hclust2 python=2.7
+## conda create -n hclust2 -c bioconda hclust2 python=2.7 ## DON'T DO IT. WE DID ALREADY
+
 source ${path}/activate hclust2
 grep -E "s__|SRS" merged_abundance_table.txt | grep -v "t__" | sed "s/^.*|//g" | sed "s/SRS[0-9]*-//g" > merged_abundance_table_species.txt
 
@@ -152,7 +159,8 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 #### GraPhlAn for circular representations of taxonomic and phylogenetic trees (folder "3_graphlan")
 ```
 source ${path}/activate
-conda create -n graphlan -c bioconda graphlan
+
+## conda create -n graphlan -c bioconda graphlan ## DON'T DO IT. WE DID ALREADY
 source ${path}/activate graphlan
 
 mkdir 3_graphlan
@@ -271,10 +279,9 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 source ${path}/activate
 
-conda create -n panphlan -c bioconda panphlan
-conda install -c conda-forge matplotlib
-
+## conda create -n panphlan -c bioconda panphlan ## DON'T DO IT. WE DID ALREADY
 source ${path}/activate panphlan
+## conda install -c conda-forge matplotlib ## DON'T DO IT. WE DID ALREADY
 
 mkdir 4_panphlan
 cd 4_panphlan
@@ -321,9 +328,9 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 source ${path}/activate
 
-conda create -n humann -c bioconda python=3.9
+## conda create -n humann -c bioconda python=3.9 ## DON'T DO IT. WE DID ALREADY
 source ${path}/activate humann
-conda install -c biobakery humann
+## conda install -c biobakery humann ## DON'T DO IT. WE DID ALREADY
 
 mkdir 5_humann
 cd 5_humann
@@ -399,7 +406,7 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 source ${path}/activate
 
-conda create -n megahit -c bioconda megahit
+## conda create -n megahit -c bioconda megahit ## DON'T DO IT. WE DID ALREADY
 source ${path}/activate megahit
 
 mkdir 6_assembly
@@ -419,8 +426,8 @@ megahit -1 ${s}_1.fastq.gz -2 ${s}_2.fastq.gz -o ${s}.megahit_asm -t 8
 
 #### Do some post-processing on the contigs file
 ```
-conda install -c conda-forge biopython
-conda install -c anaconda pandas
+## conda install -c conda-forge biopython ## DON'T DO IT. WE DID ALREADY
+## conda install -c anaconda pandas ## DON'T DO IT. WE DID ALREADY
 
 python megahit2spades.py SRR341725.megahit_asm/final.contigs.fa SRR341725.megahit_asm/contigs.fasta
 python filter_contigs.py SRR341725.megahit_asm/contigs.fasta SRR341725.megahit_asm/contigs_filtered.fasta
@@ -429,7 +436,8 @@ python filter_contigs.py SRR341725.megahit_asm/contigs.fasta SRR341725.megahit_a
 
 #### Run prokka for rapid prokaryotic genome annotation
 ```
-conda create -n prokka -c bioconda prokka
+## conda create -n prokka -c bioconda prokka ## DON'T DO IT. WE DID ALREADY
+
 source ${path}/activate prokka
 prokka --outdir ${s}_prokka --centre CDC --compliant --cpus 8 SRR341725.megahit_asm/contigs.fasta
 
