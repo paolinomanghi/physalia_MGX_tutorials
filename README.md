@@ -67,7 +67,8 @@ source ${path}/activate bowtie2
 ##bowtie2-build ${human_gen_path}GCF_009914755.1_T2T-CHM13v2.0.fna ../human_genome/GCF_009914755.1_T2T-CHM13v2.0 ### DON'T RUN IT! IT TAKES A FEW HOURS TO BE EXECUTED
 
 ##VERSION 10 SECONDS LONG
-bowtie2 -x ${human_gen_path}GCF_009914755.1_T2T-CHM13v2.0 -1 ${s}_filtered_1.fastq -2 ${s}_filtered_2.fastq -S ${s}.sam --very-sensitive-local -p 8 > ${s}_bowtie2.log 2>&1
+bowtie2 -x ${human_gen_path}GCF_009914755.1_T2T-CHM13v2.0 -1 ${s}_filtered_1.fastq -2 ${s}_filtered_2.fastq \
+    -S ${s}.sam --very-sensitive-local -p 8
 
 conda deactivate
 source ${path}/activate samtools
