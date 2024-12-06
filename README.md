@@ -99,8 +99,9 @@ source ${path}/activate mpa
 
 mkdir 2_metaphlan
 cd 2_metaphlan
+
 ```
- 
+
 #### Getting example files (6 fasta files) from https://github.com/biobakery/biobakery/wiki/metaphlan4
 ```
 mpa_db="/home/ubuntu/shotgun_course/metaphlan_databases/"
@@ -246,14 +247,14 @@ cd ~/Share
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
-#### StrainPhlAn for strain-level profiling (folder "3_strainphlan")
+#### StrainPhlAn for strain-level profiling (folder "4_strainphlan")
 ```
 conda deactivate
 source ${path}/activate
 source ${path}/activate mpa
 
-mkdir 3_strainphlan
-cd 3_strainphlan
+mkdir 4_strainphlan
+cd 4_strainphlan
 ```
 
 #### Getting example files (6 fastq files) from https://github.com/biobakery/MetaPhlAn/wiki/StrainPhlAn-4.1
@@ -311,7 +312,7 @@ cd ~/Share
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
-#### PanPhlAn for Pangenome-based Phylogenomic Analysis (folder "4_panphlan")
+#### PanPhlAn for Pangenome-based Phylogenomic Analysis (folder "5_panphlan")
 ```
 conda deactivate
 source ${path}/activate
@@ -320,8 +321,8 @@ source ${path}/activate
 source ${path}/activate panphlan
 ## conda install -c conda-forge matplotlib ## DON'T DO IT. WE DID ALREADY
 
-mkdir 4_panphlan
-cd 4_panphlan
+mkdir 5_panphlan
+cd 5_panphlan
 ```
 
 #### Getting fastq example files from https://github.com/SegataLab/panphlan/wiki/Tutorial-3_0
@@ -401,7 +402,15 @@ wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR154/096/SRR15408396/SRR15408396.fastq
 #### Run humann to perform functional profiling
 ```
 s="SRR15408396"
-humann --input ${s}.fastq.gz --output ${s} --threads 8 
+
+## NOW YOU CAN RUN:
+## humann --input ${s}.fastq.gz --output ${s} --threads 8
+
+## BUT IT TAKES THREE HOURS... OR YOU CAN RUN:
+mkdir -p ${s}
+cp /home/ubuntu/course_backup/course/6_humann/${s}/${s}_genefamilies.tsv ${s}/
+cp /home/ubuntu/course_backup/course/6_humann/${s}/${s}_pathabundance.tsv ${s}/
+cp /home/ubuntu/course_backup/course/6_humann/${s}/${s}_pathcoverage.tsv ${s}/
 ```
 
 #### Manipulating HUMAnN output tables
@@ -417,9 +426,19 @@ humann_regroup_table -i ${s}/${s}_genefamilies-relab.tsv -o ${s}/${s}_rxn-relab.
 
 #### Getting another fastq file from EBI and run humann
 ```
-wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR154/098/SRR15408398/SRR15408398.fastq.gz
 s="SRR15408398"
-humann --input ${s}.fastq.gz --output ${s} --threads 8
+
+## SAME:
+## wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR154/098/SRR15408398/SRR15408398.fastq.gz
+## humann --input ${s}.fastq.gz --output ${s} --threads 8
+
+## FOR NOW, RUN:
+mkdir ${s}
+
+cp /home/ubuntu/course_backup/course/6_humann/${s}/${s}_genefamilies.tsv ${s}/
+cp /home/ubuntu/course_backup/course/6_humann/${s}/${s}_pathabundance.tsv ${s}/
+cp /home/ubuntu/course_backup/course/6_humann/${s}/${s}_pathcoverage.tsv ${s}/
+
 humann_renorm_table -i ${s}/${s}_genefamilies.tsv -o ${s}/${s}_genefamilies-relab.tsv -u relab
 humann_renorm_table -i ${s}/${s}_pathabundance.tsv -o ${s}/${s}_pathabundance-relab.tsv -u relab
 ```
