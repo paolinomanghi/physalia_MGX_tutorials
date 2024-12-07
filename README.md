@@ -265,8 +265,10 @@ wget http://cmprod1.cibio.unitn.it/biobakery4/github_strainphlan4/fastq/SRS01916
 wget http://cmprod1.cibio.unitn.it/biobakery4/github_strainphlan4/fastq/SRS022137.fastq.bz2
 wget http://cmprod1.cibio.unitn.it/biobakery4/github_strainphlan4/fastq/SRS055982.fastq.bz2
 wget http://cmprod1.cibio.unitn.it/biobakery4/github_strainphlan4/fastq/SRS064276.fastq.bz2
+```
 
 ## WAY N. 1: RUNNING METAPHLAN 
+```
 ## mpa_db="/home/ubuntu/shotgun_course/metaphlan_databases/"
 ## db_version="mpa_vJun23_CHOCOPhlAnSGB_202403"
 
@@ -282,8 +284,10 @@ wget http://cmprod1.cibio.unitn.it/biobakery4/github_strainphlan4/fastq/SRS06427
 ##     --bowtie2db ${mpa_db} --index ${db_version}
 ## s="SRS064276"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
 ##     --bowtie2db ${mpa_db} --index ${db_version}
+```
 
 ## WAY N. 2: COPY THE ALIGNMENT FILE 
+```
 cp /home/ubuntu/course_backup/course/4_strainphlan/SRS013951.sam.bz2 .
 cp /home/ubuntu/course_backup/course/4_strainphlan/SRS014613.sam.bz2 .
 cp /home/ubuntu/course_backup/course/4_strainphlan/SRS019161.sam.bz2 .
