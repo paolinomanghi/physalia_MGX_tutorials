@@ -266,26 +266,36 @@ wget http://cmprod1.cibio.unitn.it/biobakery4/github_strainphlan4/fastq/SRS02213
 wget http://cmprod1.cibio.unitn.it/biobakery4/github_strainphlan4/fastq/SRS055982.fastq.bz2
 wget http://cmprod1.cibio.unitn.it/biobakery4/github_strainphlan4/fastq/SRS064276.fastq.bz2
 
-mpa_db="/home/ubuntu/shotgun_course/metaphlan_databases/"
-db_version="mpa_vJun23_CHOCOPhlAnSGB_202403"
+## WAY N. 1: RUNNING METAPHLAN 
+## mpa_db="/home/ubuntu/shotgun_course/metaphlan_databases/"
+## db_version="mpa_vJun23_CHOCOPhlAnSGB_202403"
 
-s="SRS013951"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
-    --bowtie2db ${mpa_db} --index ${db_version}
-s="SRS014613"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
-    --bowtie2db ${mpa_db} --index ${db_version}
-s="SRS019161"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
-    --bowtie2db ${mpa_db} --index ${db_version}
-s="SRS022137"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
-    --bowtie2db ${mpa_db} --index ${db_version}
-s="SRS055982"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
-    --bowtie2db ${mpa_db} --index ${db_version}
-s="SRS064276"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
-    --bowtie2db ${mpa_db} --index ${db_version}
+## s="SRS013951"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
+##     --bowtie2db ${mpa_db} --index ${db_version}
+## s="SRS014613"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
+##     --bowtie2db ${mpa_db} --index ${db_version}
+## s="SRS019161"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
+##     --bowtie2db ${mpa_db} --index ${db_version}
+## s="SRS022137"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
+##     --bowtie2db ${mpa_db} --index ${db_version}
+## s="SRS055982"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
+##     --bowtie2db ${mpa_db} --index ${db_version}
+## s="SRS064276"; metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --nproc 8 \
+##     --bowtie2db ${mpa_db} --index ${db_version}
 
-sample2markers.py -i *.sam.bz2 -o ./ -n 8
+## WAY N. 2: COPY THE ALIGNMENT FILE 
+cp /home/ubuntu/course_backup/course/4_strainphlan/SRS013951.sam.bz2 .
+cp /home/ubuntu/course_backup/course/4_strainphlan/SRS014613.sam.bz2 .
+cp /home/ubuntu/course_backup/course/4_strainphlan/SRS019161.sam.bz2 .
+cp /home/ubuntu/course_backup/course/4_strainphlan/SRS022137.sam.bz2 .
+cp /home/ubuntu/course_backup/course/4_strainphlan/SRS055982.sam.bz2 .
+cp /home/ubuntu/course_backup/course/4_strainphlan/SRS064276.sam.bz2 .
+ 
+mpa_database="/home/ubuntu/shotgun_course/metaphlan_databases/mpa_vJun23_CHOCOPhlAnSGB_202403.pkl"
+sample2markers.py -i *.sam.bz2 -o ./ -n 8 -d ${mpa_database}
 
 mkdir -p db_markers
-extract_markers.py -c t__SGB1877 -o db_markers/
+extract_markers.py -c t__SGB1877 -o db_markers/ -d ${mpa_database}
 ```
 
 #### Getting a reference genome ("GCF000273725")
@@ -302,7 +312,7 @@ strainphlan -h
 #### Build the multiple sequence alignment and the phylogenetic tree:
 ```
 mkdir -p output
-strainphlan -s *.json.bz2 -m db_markers/t__SGB1877.fna -r reference_genomes/G000273725.fna.bz2 -o output -c t__SGB1877 -n 8
+strainphlan -s *.json.bz2 -m db_markers/t__SGB1877.fna -r reference_genomes/G000273725.fna.bz2 -o output -c t__SGB1877 -n 8 -d ${mpa_database}
 ```
 
 #### Getting the metadata file ("metadata.txt")
@@ -348,14 +358,24 @@ panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubact
 
 #### The same script must be run for the other samples (fastq files)
 ```
-s="G78505"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
-s="G88884"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
-s="G88970"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
-s="G89027"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
-s="H2M514903"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
-s="HD-1"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
-s="T2D-063"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
-s="T2D-105"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
+## s="G78505"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
+##s="G88884"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
+##s="G88970"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
+##s="G89027"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
+##s="H2M514903"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
+##s="HD-1"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
+##s="T2D-063"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
+##s="T2D-105"; panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
+
+#### WE CAN JUST COPY THEM...
+cp /home/ubuntu/course_backup/course/5_panphlan/map_results/G78505_erectale.tsv map_results/
+cp /home/ubuntu/course_backup/course/5_panphlan/map_results/G88884_erectale.tsv map_results/
+cp /home/ubuntu/course_backup/course/5_panphlan/map_results/G88970_erectale.tsv map_results/
+cp /home/ubuntu/course_backup/course/5_panphlan/map_results/G89027_erectale.tsv map_results/
+cp /home/ubuntu/course_backup/course/5_panphlan/map_results/H2M514903_erectale.tsv map_results/
+cp /home/ubuntu/course_backup/course/5_panphlan/map_results/HD-1_erectale.tsv map_results/
+cp /home/ubuntu/course_backup/course/5_panphlan/map_results/T2D-063_erectale.tsv map_results/
+cp /home/ubuntu/course_backup/course/5_panphlan/map_results/T2D-105_erectale.tsv map_results/
 
 panphlan_profiling.py -i map_results/ --o_matrix ./result_profile_erectale.tsv -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv --o_covplot ./erectale_covplot
 panphlan_profiling.py -i map_results/ --o_matrix ./result_profile_erectale_annotation.tsv -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv --func_annot Eubacterium_rectale/panphlan_Eubacterium_rectale_annot.tsv --field 2
