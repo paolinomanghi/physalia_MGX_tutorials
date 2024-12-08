@@ -573,11 +573,11 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 source ${path}/activate
  
-## conda create -n metabat2 -c bioconda metabat2 ## DON'T DO IT. WE DID ALREADY
+## conda create -n <metabat2> -c bioconda metabat2 ## DON'T DO IT. WE DID ALREADY
 source ${path}/activate metabat2
 
-## conda install -c bioconda bowtie2 ## DON'T DO IT. WE DID ALREADY
-## conda install -c bioconda samtools ## DON'T DO IT. WE DID ALREADY
+## conda install -c bioconda <bowtie2> ## DON'T DO IT. WE DID ALREADY
+## conda install -c bioconda <samtools> ## DON'T DO IT. WE DID ALREADY
 
 mkdir 8_MAG-reconstruction
 cd 8_MAG-reconstruction
@@ -596,6 +596,7 @@ cp ../7_assembly/SRR341725_2.fastq.gz ./
 ```
 bowtie2-build contigs_filtered.fasta contigs_filtered
 bowtie2 -x contigs_filtered -1 ${s}_1.fastq.gz -2 ${s}_2.fastq.gz -S ${s}.sam -p 8 2> ${s}.bowtie2.log
+
 samtools view -bS ${s}.sam > ${s}.bam
 samtools sort ${s}.bam -o sorted_${s}.bam
 ```
@@ -611,7 +612,7 @@ metabat2 -i contigs_filtered.fasta -a ${s}_depth.txt -o ${s}_bins/bin -m 1500 --
 conda deactivate
 source ${path}/activate
 
-## conda create -n checkm2 -c bioconda checkm2 ## DON'T DO IT. WE DID ALREADY
+## conda create -n <checkm2> -c bioconda checkm2 ## DON'T DO IT. WE DID ALREADY
 
 source ${path}/activate checkm2
 ## pip install absl-py==1.1.0 ## DON'T DO IT. WE DID ALREADY
@@ -632,7 +633,7 @@ cut -f1 SRR341725_checkm2/quality_report_filtered.tsv | while read -r value; do 
 conda deactivate
 source ${path}/activate
 
-conda create -n phylophlan -c bioconda phylophlan ## DON'T DO IT. WE DID ALREADY
+## conda create -n <phylophlan> -c bioconda phylophlan ## DON'T DO IT. WE DID ALREADY
 source ${path}/activate phylophlan
 ```
 
