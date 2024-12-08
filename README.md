@@ -25,9 +25,9 @@ conda info --envs
 #### Step 3: raw data pre-processing on fastq example files "seq_1.fastq.gz" and "seq_2.fastq.gz" from https://github.com/biobakery/biobakery/wiki/kneaddata
 ```
 
-##conda create -n trimmomatic -c bioconda trimmomatic ## DON'T DO IT. WE DID ALREADY
-##conda create -n bowtie2 -c bioconda bowtie2 ## DON'T DO IT. WE DID ALREADY
-##conda create -n samtools -c bioconda samtools ## DON'T DO IT. WE DID ALREADY
+##conda create -n <trimmomatic> -c bioconda trimmomatic ## DON'T DO IT. WE DID ALREADY
+##conda create -n <bowtie2> -c bioconda bowtie2 ## DON'T DO IT. WE DID ALREADY
+##conda create -n <samtools> -c bioconda samtools ## DON'T DO IT. WE DID ALREADY
 
 mkdir 1_pre-processing
 cd 1_pre-processing
@@ -93,8 +93,8 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 conda deactivate
 source ${path}/activate
-##conda create -n mpa -c conda-forge -c bioconda python=3.7 metaphlan=4.1.0 ## DON'T DO IT. WE DID ALREADY
 
+##conda create -n <mpa> -c conda-forge -c bioconda python=3.7 metaphlan=4.1.0 ## DON'T DO IT. WE DID ALREADY
 source ${path}/activate mpa
 
 mkdir 2_metaphlan
@@ -156,9 +156,9 @@ metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}_sub.bowtie2.bz2 --
 
 #### Generate heatmap with hclust2
 ```
-## conda create -n hclust2 -c bioconda hclust2 python=2.7 ## DON'T DO IT. WE DID ALREADY
-
+## conda create -n <hclust2> -c bioconda hclust2 python=2.7 ## DON'T DO IT. WE DID ALREADY
 conda deactivate
+
 source ${path}/activate hclust2
 grep -E "s__|SRS" merged_abundance_table.txt | grep -v "t__" | sed "s/^.*|//g" | sed "s/SRS[0-9]*-//g" > merged_abundance_table_species.txt
 
@@ -187,7 +187,7 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 conda deactivate
 source ${path}/activate
 
-## conda create -n graphlan -c bioconda graphlan ## DON'T DO IT. WE DID ALREADY
+## conda create -n <graphlan> -c bioconda graphlan ## DON'T DO IT. WE DID ALREADY
 source ${path}/activate graphlan
 
 mkdir 3_graphlan
@@ -341,9 +341,9 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 conda deactivate
 source ${path}/activate
 
-## conda create -n panphlan -c bioconda panphlan ## DON'T DO IT. WE DID ALREADY
+## conda create -n <panphlan> -c bioconda panphlan ## DON'T DO IT. WE DID ALREADY
 source ${path}/activate panphlan
-## conda install -c conda-forge matplotlib ## DON'T DO IT. WE DID ALREADY
+## conda install -c conda-forge <matplotlib> ## DON'T DO IT. WE DID ALREADY
 
 mkdir 5_panphlan
 cd 5_panphlan
@@ -357,6 +357,7 @@ tar -xvjf panphlan_tutorial_samples.tar.bz2
 panphlan_download_pangenome.py -i Eubacterium_rectale -o ./
 
 mkdir -p map_results
+
 s="CCMD34381688ST-21-0"
 panphlan_map.py -i samples_fastq/${s}.fastq --indexes Eubacterium_rectale/Eubacterium_rectale -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv -o map_results/${s}_erectale.tsv --nproc 8
 ```
@@ -402,9 +403,9 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 conda deactivate
 source ${path}/activate
 
-## conda create -n humann -c bioconda python=3.9 ## DON'T DO IT. WE DID ALREADY
+## conda create -n <humann> -c bioconda python=3.9 ## DON'T DO IT. WE DID ALREADY
 source ${path}/activate humann
-## conda install -c biobakery humann ## DON'T DO IT. WE DID ALREADY
+## conda install -c biobakery <humann> ## DON'T DO IT. WE DID ALREADY
 
 mkdir 6_humann
 cd 6_humann
@@ -442,6 +443,7 @@ s="SRR15408396"
 
 ## BUT IT TAKES THREE HOURS... OR YOU CAN RUN:
 mkdir -p ${s}
+
 cp /home/ubuntu/course_backup/course/6_humann/${s}/${s}_genefamilies.tsv ${s}/
 cp /home/ubuntu/course_backup/course/6_humann/${s}/${s}_pathabundance.tsv ${s}/
 cp /home/ubuntu/course_backup/course/6_humann/${s}/${s}_pathcoverage.tsv ${s}/
@@ -480,6 +482,7 @@ humann_renorm_table -i ${s}/${s}_pathabundance.tsv -o ${s}/${s}_pathabundance-re
 #### Merge multiple outputs
 ```
 mkdir -p merged
+
 cp SRR15408396/SRR15408396_genefamilies-relab.tsv merged/
 cp SRR15408398/SRR15408398_genefamilies-relab.tsv merged/
 cp SRR15408396/SRR15408396_pathabundance-relab.tsv merged/
@@ -504,7 +507,7 @@ path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 conda deactivate
 source ${path}/activate
 
-## conda create -n megahit -c bioconda megahit ## DON'T DO IT. WE DID ALREADY
+## conda create -n <megahit> -c bioconda megahit ## DON'T DO IT. WE DID ALREADY
 source ${path}/activate megahit
 
 mkdir 7_assembly
@@ -529,14 +532,15 @@ s="SRR341725"
 
 ## FOR NOW WE CAN COPY THE RESULTS FROM MEGAHIT
 mkdir -p ${s}.megahit_asm/
+
 cp /home/ubuntu/course_backup/course/7_assembly/${s}.megahit_asm/final.contigs.fa  ${s}.megahit_asm/
 cp /home/ubuntu/course_backup/course/7_assembly/${s}.megahit_asm/contigs.fasta  ${s}.megahit_asm/
 ```
 
 #### Do some post-processing on the contigs file
 ```
-## conda install -c conda-forge biopython ## DON'T DO IT. WE DID ALREADY
-## conda install -c anaconda pandas ## DON'T DO IT. WE DID ALREADY
+## conda install -c conda-forge <biopython> ## DON'T DO IT. WE DID ALREADY
+## conda install -c anaconda <pandas> ## DON'T DO IT. WE DID ALREADY
 
 python megahit2spades.py ${s}.megahit_asm/final.contigs.fa ${s}.megahit_asm/contigs.fasta
 python filter_contigs.py ${s}.megahit_asm/contigs.fasta ${s}.megahit_asm/contigs_filtered.fasta
@@ -550,9 +554,10 @@ prokka -h
 
 #### Run prokka for rapid prokaryotic genome annotation
 ```
-## conda create -n prokka -c bioconda prokka ## DON'T DO IT. WE DID ALREADY
+## conda create -n <prokka> -c bioconda prokka ## DON'T DO IT. WE DID ALREADY
 
 conda deactivate
 source ${path}/activate prokka
+
 prokka --outdir ${s}_prokka --centre CDC --compliant --cpus 8 ${s}.megahit_asm/contigs_filtered.fasta
 ```
