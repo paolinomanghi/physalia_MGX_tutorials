@@ -561,3 +561,87 @@ source ${path}/activate prokka
 
 prokka --outdir ${s}_prokka --centre CDC --compliant --cpus 8 ${s}.megahit_asm/contigs_filtered.fasta
 ```
+
+### End of Lecture 7 - Metagenomic assembly
+### Lecture 8 - MAG reconstruction
+```
+cd ~/Share
+path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
+```
+
+## Metabat2 for metagenomic binning (folder "8_MAG-reconstruction")
+```
+source ${path}/activate
+ 
+## conda create -n metabat2 -c bioconda metabat2 ## DON'T DO IT. WE DID ALREADY
+source ${path}/activate metabat2
+
+## conda install -c bioconda bowtie2 ## DON'T DO IT. WE DID ALREADY
+## conda install -c bioconda samtools ## DON'T DO IT. WE DID ALREADY
+
+mkdir 8_MAG-reconstruction
+cd 8_MAG-reconstruction
+```
+
+## Copy the raw reads and contigs generated in the previous tutorial (folder "7_assembly")
+```
+s="SRR341725"
+
+cp ../7_assembly/SRR341725.megahit_asm/contigs_filtered.fasta ./
+cp ../7_assembly/SRR341725_1.fastq.gz ./
+cp ../7_assembly/SRR341725_2.fastq.gz ./
+```
+
+## Mapping of raw reads against contigs
+```
+bowtie2-build contigs_filtered.fasta contigs_filtered
+bowtie2 -x contigs_filtered -1 ${s}_1.fastq.gz -2 ${s}_2.fastq.gz -S ${s}.sam -p 8 2> ${s}.bowtie2.log
+samtools view -bS ${s}.sam > ${s}.bam
+samtools sort ${s}.bam -o sorted_${s}.bam
+```
+
+## Run metabat2 to reconstruct metagenome-assembled genomes (MAGs)
+```
+jgi_summarize_bam_contig_depths --outputDepth ${s}_depth.txt sorted_${s}.bam 2> ${s}_depth.log
+metabat2 -i contigs_filtered.fasta -a ${s}_depth.txt -o ${s}_bins/bin -m 1500 --unbinned -t 8 > ${s}_metabat2.log
+```
+
+## Checkm2 to estimate MAG quality
+```
+conda deactivate
+source ${path}/activate
+
+## conda create -n checkm2 -c bioconda checkm2 ## DON'T DO IT. WE DID ALREADY
+
+source ${path}/activate checkm2
+## pip install absl-py==1.1.0 ## DON'T DO IT. WE DID ALREADY
+
+checkm2 database --download --path ./
+checkm2 testrun --database_path CheckM2_database/uniref100.KO.1.dmnd --threads 8
+
+checkm2 predict -i SRR341725_bins -o SRR341725_checkm2 -x .fa --database_path CheckM2_database/uniref100.KO.1.dmnd --threads 8
+
+awk -F'\t' '$2 > 50 && $3 < 5' SRR341725_checkm2/quality_report.tsv > SRR341725_checkm2/quality_report_filtered.tsv
+
+mkdir -p ${s}_bins_filtered
+cut -f1 SRR341725_checkm2/quality_report_filtered.tsv | while read -r value; do cp ${s}_bins/${value}.fa ${s}_bins_filtered/; done
+```
+
+## Run PhyloPhlAn to perform taxonomic assignment
+```
+conda deactivate
+source ${path}/activate
+
+conda create -n phylophlan -c bioconda phylophlan ## DON'T DO IT. WE DID ALREADY
+source ${path}/activate phylophlan
+```
+
+## Let's have a look at PhyPhlAn commands:
+```
+phylophlan -h
+```
+
+## Let's run the PhyloPhlAn taxonomic assignment tool
+```
+phylophlan_assign_sgbs -i SRR341725_bins_filtered -o SRR341725_bins_filtered_phylophlan -d SGB.Jun23 -n 1 --verbose --nproc 8 2>&1 | tee SRR341725_phylophlan.log
+```
