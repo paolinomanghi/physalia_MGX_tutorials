@@ -21,7 +21,7 @@ source ${path}/activate
 ```
 conda info --envs
 ```
-#### Did you see a list of 10 dedicated environments? They cover as many foundamental steps 
+#### Did you see a list of 13 dedicated environments? They cover as many foundamental steps 
 #### Step 3: raw data pre-processing on fastq example files "seq_1.fastq.gz" and "seq_2.fastq.gz" from https://github.com/biobakery/biobakery/wiki/kneaddata
 ```
 
