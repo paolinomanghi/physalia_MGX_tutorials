@@ -3,7 +3,7 @@
 
 #### Step 1: get into the right place
 ```
-cd ~/Share
+cd /home/user<YOUR USER NAME>
 ```
 
 #### Step 2: set up anaconda and check whether everything's visible !
@@ -85,7 +85,7 @@ for i in *.gz; do echo -ne "${i}\t"; zcat "$i" | wc -l; done
 ### -- end of lecture 1 - preprocessing
 ### Lecture 2 - MetaPhlAn profiling
 ```
-cd ~/Share
+cd /home/user<YOUR USER NAME>
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
@@ -146,6 +146,7 @@ merge_metaphlan_tables.py *_profile.txt > merged_abundance_table.txt
 wget http://cmprod1.cibio.unitn.it/biobakery4/github_strainphlan4/fastq/SRS013951.fastq.bz2
 
 s="SRS013951";
+
 metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}.bowtie2.bz2 --samout ${s}.sam.bz2 -o ${s}_profile.txt --stat_q 0.1 \
     --nproc 8 --bowtie2db ${mpa_db} --index ${db_version}
 metaphlan ${s}.fastq.bz2 --input_type fastq --bowtie2out ${s}_unclas.bowtie2.bz2 --samout ${s}_unclas.sam.bz2 -o ${s}_unclas_profile.txt \
@@ -178,7 +179,7 @@ hclust2.py \
 ### End of Lecture 2 - MetaPhlAn profiling
 ### Lecture 3 - What is GraPhlAn ?
 ```
-cd ~/Share
+cd /home/user<YOUR USER NAME>
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
@@ -243,7 +244,7 @@ graphlan.py hmptree.annot.xml hmptree.png --dpi 150 --size 14
 ### End of lecture 3 - What is GraPhlAn
 ### Lecture 4 - What is StrainPhlAn 
 ```
-cd ~/Share
+cd /home/user<YOUR USER NAME>
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
@@ -332,7 +333,7 @@ ${path}/../envs/mpa/bin/plot_tree_graphlan.py -t output/RAxML_bestTree.t__SGB187
 ### End of Lecture 4 - what is StrainPhlAn 
 ### Lecture 5 - What is PanPhlAn 
 ```
-cd ~/Share
+cd /home/user<YOUR USER NAME>
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
@@ -394,7 +395,7 @@ panphlan_profiling.py -i map_results/ --o_matrix ./result_profile_erectale_annot
 ### End of Lecture 5 - What is PanPhlAn 
 ### Lecture 6 - HUMAnN 3
 ```
-cd ~/Share
+cd /home/user<YOUR USER NAME>
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
@@ -498,7 +499,7 @@ humann_join_tables -i merged -o merged/merged_pathcoverage.tsv --file_name pathc
 ### End of Lecture 6 - HUMAnN 3
 ### Lecture 7 - Metagenomic assembly
 ```
-cd ~/Share
+cd /home/user<YOUR USER NAME>
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
@@ -565,7 +566,7 @@ prokka --outdir ${s}_prokka --centre CDC --compliant --cpus 8 ${s}.megahit_asm/c
 ### End of Lecture 7 - Metagenomic assembly
 ### Lecture 8 - MAG reconstruction
 ```
-cd ~/Share
+cd /home/user<YOUR USER NAME>
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
 ```
 
