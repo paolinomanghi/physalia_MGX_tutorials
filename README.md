@@ -303,7 +303,7 @@ mkdir -p db_markers
 ## extract_markers.py -c t__SGB1877 -o db_markers/ -d ${mpa_database} ## TOO LONG,
 ## DO THIS INSTEAD:
 
-cp /home/ubuntu/course_backup/course/4_strainphlan/db_markers/t__SGB1877.fna .
+cp /home/ubuntu/course_backup/course/4_strainphlan/db_markers/t__SGB1877.fna db_markers/
 ```
 
 #### Getting a reference genome ("GCF000273725")
