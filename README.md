@@ -572,7 +572,10 @@ prokka -h
 conda deactivate
 source ${path}/activate prokka
 
-prokka --outdir ${s}_prokka --centre CDC --compliant --cpus 8 ${s}.megahit_asm/contigs_filtered.fasta
+## prokka --outdir ${s}_prokka --centre CDC --compliant --cpus 8 ${s}.megahit_asm/contigs_filtered.fasta ## TOO LONG,
+## DO THIS INSTEAD:
+
+cp -r /home/ubuntu/course_backup/course/7_assembly/SRR341725_prokka/ ./
 ```
 
 ### End of Lecture 7 - Metagenomic assembly
