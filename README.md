@@ -402,7 +402,7 @@ panphlan_profiling.py -i map_results/ --o_matrix ./result_profile_erectale_annot
 #### Post-processing to create heatmap and MDS from the PanPhlAn output results
 We also use the file "metadata_erectale.txt" by taking information from https://github.com/SegataLab/panphlan/wiki/Tutorial-3_0
 
-See the R script and associated files here in subfolder [https://github.com/paolinomanghi/physalia_metagenomics_2024/tree/main/5_graphlan-Rcode]5_panphlan-Rcode
+See the R script and associated files here in subfolder [https://github.com/paolinomanghi/physalia_metagenomics_2024/tree/main/5_graphlan-Rcode](5_panphlan-Rcode)
 
 ### End of Lecture 5 - What is PanPhlAn 
 ### Lecture 6 - HUMAnN 3
