@@ -355,8 +355,12 @@ cd 5_panphlan
 
 #### Getting fastq example files from https://github.com/SegataLab/panphlan/wiki/Tutorial-3_0
 ```
-wget https://www.dropbox.com/s/oi26jg0v7ktlavc/panphlan_tutorial_samples.tar.bz2
-tar -xvjf panphlan_tutorial_samples.tar.bz2
+## wget https://www.dropbox.com/s/oi26jg0v7ktlavc/panphlan_tutorial_samples.tar.bz2
+## tar -xvjf panphlan_tutorial_samples.tar.bz2 ## TOO LONG,
+## DO THIS INSTEAD:
+
+mkdir -p samples_fastq
+cp /home/ubuntu/course_backup/course/5_panphlan/samples_fastq/CCMD34381688ST-21-0.fastq samples_fastq/
 
 panphlan_download_pangenome.py -i Eubacterium_rectale -o ./
 
