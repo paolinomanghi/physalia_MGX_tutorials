@@ -548,6 +548,10 @@ mkdir -p ${s}.megahit_asm/
 
 cp /home/ubuntu/course_backup/course/7_assembly/${s}.megahit_asm/final.contigs.fa  ${s}.megahit_asm/
 cp /home/ubuntu/course_backup/course/7_assembly/${s}.megahit_asm/contigs.fasta  ${s}.megahit_asm/
+
+## WE ALSO NEED TWO CUSTOM SCRIPT:
+cp /home/ubuntu/course_backup/course/7_assembly/filter_contigs.py .
+cp /home/ubuntu/course_backup/course/7_assembly/megahit2spades.py .
 ```
 
 #### Do some post-processing on the contigs file
