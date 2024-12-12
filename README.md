@@ -399,8 +399,9 @@ panphlan_profiling.py -i map_results/ --o_matrix ./result_profile_erectale_annot
 panphlan_profiling.py -i map_results/ --o_matrix ./result_profile_erectale_annotation_withref.tsv -p Eubacterium_rectale/Eubacterium_rectale_pangenome.tsv --func_annot Eubacterium_rectale/panphlan_Eubacterium_rectale_annot.tsv --field 2 --add_ref
 ```
 
-#### Generate the file "metadata_erectale.txt" by taking information from https://github.com/SegataLab/panphlan/wiki/Tutorial-3_0
-#### Script in R to generate Heatmap and MDS
+#### Post-processing to create heatmap and MDS from the PanPhlAn output results
+#### We also use the file "metadata_erectale.txt" by taking information from https://github.com/SegataLab/panphlan/wiki/Tutorial-3_0
+#### See the R script and associated files here in subfolder 5_panphlan-Rcode
 
 ### End of Lecture 5 - What is PanPhlAn 
 ### Lecture 6 - HUMAnN 3
