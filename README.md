@@ -617,8 +617,12 @@ cp ../7_assembly/SRR341725_2.fastq.gz ./
 bowtie2-build contigs_filtered.fasta contigs_filtered
 bowtie2 -x contigs_filtered -1 ${s}_1.fastq.gz -2 ${s}_2.fastq.gz -S ${s}.sam -p 8 2> ${s}.bowtie2.log
 
-samtools view -bS ${s}.sam > ${s}.bam
-samtools sort ${s}.bam -o sorted_${s}.bam
+### THE FOLLOWING MIGHT RAISE DISK ISSUE:
+## samtools view -bS ${s}.sam > ${s}.bam
+## samtools sort ${s}.bam -o sorted_${s}.bam
+
+## COPY THE RESULT FOR NOW:
+cp /home/ubuntu/course_backup/course/8_MAG-reconstruction/sorted_SRR341725.bam .
 ```
 
 ## Run metabat2 to reconstruct metagenome-assembled genomes (MAGs)
