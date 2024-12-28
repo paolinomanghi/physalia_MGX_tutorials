@@ -402,7 +402,7 @@ panphlan_profiling.py -i map_results/ --o_matrix ./result_profile_erectale_annot
 #### Post-processing to create heatmap and MDS from the PanPhlAn output results
 We also use the file "metadata_erectale.txt" by taking information from https://github.com/SegataLab/panphlan/wiki/Tutorial-3_0
 
-See the R script and associated files here in subfolder [https://github.com/paolinomanghi/physalia_metagenomics_2024/tree/main/5_graphlan-Rcode](5_panphlan-Rcode)
+See the R script and associated files here in subfolder [https://github.com/paolinomanghi/physalia_metagenomics_2024/tree/main/5_panphlan-Rcode](5_panphlan-Rcode)
 
 ### End of Lecture 5 - What is PanPhlAn 
 ### Lecture 6 - HUMAnN 3
@@ -679,3 +679,8 @@ phylophlan_assign_sgbs -i SRR341725_bins_filtered -o SRR341725_bins_filtered_phy
     -d SGB.Jun23 --database_folder ${database_folder} \
     -n 1 --verbose --nproc 8 2>&1 | tee SRR341725_phylophlan.log
 ```
+
+### End of Lecture 8 - MAG reconstruction
+### Lecture 9 - Statistical analysis
+See the R script here in subfolder [https://github.com/paolinomanghi/physalia_metagenomics_2024/tree/main/9_statistical-analysis-Rcode](5_statistical-analysis-Rcode)
+### End of Lecture 9 - Statistical analysis
