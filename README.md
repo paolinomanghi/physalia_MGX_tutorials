@@ -1,5 +1,5 @@
 ## physalia_metagenomics_2024
-### lecture 1 - preprocessing
+### Lecture 1 - Pre-processing
 
 #### Step 1: get into the right place
 ```
@@ -82,7 +82,7 @@ for i in *.gz; do echo -ne "${i}\t"; zcat "$i" | wc -l; done
 ```
 #### Did the preprocessing produce the same exact number of reads in R1 and R2 ?
 
-### -- end of lecture 1 - preprocessing
+### End of Lecture 1 - Pre-processing
 ### Lecture 2 - MetaPhlAn profiling
 ```
 cd /home/user<YOUR USER NAME>
@@ -177,7 +177,7 @@ hclust2.py \
 ```
 
 ### End of Lecture 2 - MetaPhlAn profiling
-### Lecture 3 - What is GraPhlAn ?
+### Lecture 3 - GraPhlAn
 ```
 cd /home/user<YOUR USER NAME>
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
@@ -241,8 +241,8 @@ graphlan_annotate.py --annot annot_HMP_tree.txt hmptree.xml hmptree.annot.xml
 graphlan.py hmptree.annot.xml hmptree.png --dpi 150 --size 14 
 ```
 
-### End of lecture 3 - What is GraPhlAn
-### Lecture 4 - What is StrainPhlAn 
+### End of Lecture 3 - GraPhlAn
+### Lecture 4 - StrainPhlAn 
 ```
 cd /home/user<YOUR USER NAME>
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
@@ -333,8 +333,8 @@ source ${path}/activate graphlan
 ${path}/../envs/mpa/bin/plot_tree_graphlan.py -t output/RAxML_bestTree.t__SGB1877.StrainPhlAn4.tre.metadata -m subjectID
 ```
 
-### End of Lecture 4 - what is StrainPhlAn 
-### Lecture 5 - What is PanPhlAn 
+### Lecture 4 - StrainPhlAn 
+### Lecture 5 - PanPhlAn 
 ```
 cd /home/user<YOUR USER NAME>
 path="/home/ubuntu/shotgun_course/anaconda3course/bin/"
@@ -404,7 +404,7 @@ We also use the file "metadata_erectale.txt" by taking information from https://
 
 See the R script and associated files here in subfolder [https://github.com/paolinomanghi/physalia_metagenomics_2024/tree/main/5_panphlan-Rcode](5_panphlan-Rcode)
 
-### End of Lecture 5 - What is PanPhlAn 
+### End of Lecture 5 - PanPhlAn 
 ### Lecture 6 - HUMAnN 3
 ```
 cd /home/user<YOUR USER NAME>
