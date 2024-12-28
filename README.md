@@ -682,5 +682,5 @@ phylophlan_assign_sgbs -i SRR341725_bins_filtered -o SRR341725_bins_filtered_phy
 
 ### End of Lecture 8 - MAG reconstruction
 ### Lecture 9 - Statistical analysis
-See the R script here in subfolder [https://github.com/paolinomanghi/physalia_metagenomics_2024/tree/main/9_statistical-analysis-Rcode](5_statistical-analysis-Rcode)
+See the R script here in subfolder [https://github.com/paolinomanghi/physalia_metagenomics_2024/tree/main/9_statistical-analysis-Rcode](9_statistical-analysis-Rcode)
 ### End of Lecture 9 - Statistical analysis
