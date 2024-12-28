@@ -1,5 +1,5 @@
 ---
-title: "Shotgun metagenomics processing and analysis 2024 - PanPhlAn"
+title: "Shotgun metagenomics processing and analysis 2024 - Statistical analysis"
 author: "Edoardo Pasolli & Paolo Manghi"
 date: "2024-Dec-10"
 output: html_document
